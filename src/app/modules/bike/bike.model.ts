@@ -1,5 +1,5 @@
 import { model, Schema } from 'mongoose';
-import { BlogModel, IBlog } from './blog.interface';
+import { BlogModel, IBlog } from './bike.interface';
 
 const blogSchema = new Schema<IBlog, BlogModel>(
   {

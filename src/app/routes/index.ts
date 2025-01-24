@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { UserRouters } from '../modules/user/user.route';
-import { BlogRouters } from '../modules/blog/blog.route';
+import { BlogRouters } from '../modules/bike/bike.route';
 import { AdminRouters } from '../modules/admin/admin.route';
 import { AuthRouters } from '../modules/auth/auth.route';
 

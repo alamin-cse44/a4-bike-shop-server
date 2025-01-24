@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-const createBlogValidaitonSchema = z.object({
+const createProductValidaitonSchema = z.object({
   body: z.object({
     title: z.string().min(5).max(255),
     content: z.string().min(20).max(5000),
@@ -8,7 +8,7 @@ const createBlogValidaitonSchema = z.object({
 });
 
 
-const updateBlogValidaitonSchema = z.object({
+const updateProductValidaitonSchema = z.object({
   body: z.object({
     title: z.string().min(5).max(255).optional(),
     content: z.string().min(20).max(5000).optional(),
@@ -16,6 +16,6 @@ const updateBlogValidaitonSchema = z.object({
 });
 
 export const BlogValidations = {
-  createBlogValidaitonSchema,
-  updateBlogValidaitonSchema,
+  createProductValidaitonSchema,
+  updateProductValidaitonSchema,
 };

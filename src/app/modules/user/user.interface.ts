@@ -5,14 +5,9 @@ export interface IUser {
   name: string;
   email: string;
   password: string;
-  role: 'admin' | 'user';
+  role: 'admin' | 'customer';
   isBlocked: boolean;
 }
-
-export type TLoginUser = {
-  email: string;
-  password: string;
-};
 
 export interface UserModel extends Model<IUser> {
   isUserExistById(id: string): Promise<IUser>;

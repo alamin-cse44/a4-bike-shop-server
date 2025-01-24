@@ -22,8 +22,8 @@ const userSchema = new Schema<IUser, UserModel>(
     },
     role: {
       type: String,
-      enum: ['admin', 'user'],
-      default: 'user',
+      enum: ['admin', 'customer'],
+      default: 'customer',
     },
     isBlocked: {
       type: Boolean,

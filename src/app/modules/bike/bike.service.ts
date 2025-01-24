@@ -1,24 +1,23 @@
 import { StatusCodes } from 'http-status-codes';
 import QeryBuilder from '../../builder/QeryBuilder';
 import AppError from '../../errors/AppError';
-import { blogSearchableFields } from './blog.constant';
-import { IBlog } from './blog.interface';
-import { Blog } from './blog.model';
+import { blogSearchableFields } from './bike.constant';
+import { IBlog } from './bike.interface';
+import { Blog } from './bike.model';
 import { JwtPayload } from 'jsonwebtoken';
 import { IUser } from '../user/user.interface';
 import { User } from '../user/user.model';
 
 const createBlogIntoDB = async (payload: IBlog, user: JwtPayload) => {
-
   const email = user?.userEmail;
-  const userData = await User.findOne({email});
+  const userData = await User.findOne({ email });
   // console.log(userData?._id.toString())
- 
+
   const blog = {
     title: payload?.title,
     content: payload?.content,
-    author: userData?._id.toString()
-  }
+    author: userData?._id.toString(),
+  };
 
   // console.log(blog)
 

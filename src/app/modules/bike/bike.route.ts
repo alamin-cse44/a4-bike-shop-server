@@ -1,7 +1,7 @@
 import express from 'express';
 import validateRequest from '../../middlewares/validateRequest';
-import { BlogValidations } from './blog.validation';
-import { BlogControllers } from './blog.controller';
+import { BlogValidations } from './bike.validation';
+import { BlogControllers } from './bike.controller';
 import auth from '../../middlewares/auth';
 import { USER_ROLE } from '../user/user.constant';
 

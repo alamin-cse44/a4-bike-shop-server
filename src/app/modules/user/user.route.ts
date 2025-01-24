@@ -15,7 +15,7 @@ router.post(
 
 router.get(
   '/single-user/:id',
-  auth(USER_ROLE.admin, USER_ROLE.user),
+  auth(USER_ROLE.admin, USER_ROLE.customer),
   UserControllers.getSignleUserById,
 );
 
@@ -28,6 +28,6 @@ router.get(
 
 router.get('/all-users', auth('admin'), UserControllers.getAllUsers);
 
-router.get('/me', auth('admin', 'user'), UserControllers.getMe);
+router.get('/me', auth('admin', 'customer'), UserControllers.getMe);
 
 export const UserRouters = router;
