@@ -1,84 +1,49 @@
 import { StatusCodes } from 'http-status-codes';
 import QeryBuilder from '../../builder/QeryBuilder';
 import AppError from '../../errors/AppError';
-import { blogSearchableFields } from './bike.constant';
-import { IBlog } from './bike.interface';
-import { Blog } from './bike.model';
-import { JwtPayload } from 'jsonwebtoken';
-import { IUser } from '../user/user.interface';
-import { User } from '../user/user.model';
+import { IBike } from './bike.interface';
+import { Bike } from './bike.model';
+import { bikeSearchableFields } from './bike.constant';
 
-const createBlogIntoDB = async (payload: IBlog, user: JwtPayload) => {
-  const email = user?.userEmail;
-  const userData = await User.findOne({ email });
-  // console.log(userData?._id.toString())
-
-  const blog = {
-    title: payload?.title,
-    content: payload?.content,
-    author: userData?._id.toString(),
-  };
-
-  // console.log(blog)
-
-  const result = await Blog.create(blog);
+const createBikeIntoDB = async (payload: IBike) => {
+  const result = await Bike.create(payload);
 
   return result;
 };
 
-const getAllBlogsFromDB = async (query: Record<string, unknown>) => {
+const getAllBikesFromDB = async (query: Record<string, unknown>) => {
   // const queryObj = { ...query };
 
-  const blogQuery = new QeryBuilder(Blog.find().populate('author'), query)
-    .search(blogSearchableFields)
+  // TODO: Populate
+  const bikeQuery = new QeryBuilder(Bike.find().populate('author'), query)
+    .search(bikeSearchableFields)
     .filter()
     .sort()
     .sortByAscOrDesc()
     .paginate()
     .fields();
 
-  const result = await blogQuery.modelQuery;
+  const result = await bikeQuery.modelQuery;
 
   return result;
 };
 
-const getBlogByIdFromDB = async (id: string) => {
-  const result = await Blog.findById(id);
+const getBikeByIdFromDB = async (id: string) => {
+  const result = await Bike.findById(id);
 
   return result;
 };
 
-const updateBlogByIdIntoDB = async (
-  id: string,
-  payload: Partial<IBlog>,
-  user: JwtPayload,
-) => {
-  // check if blog exists by id
-  const blog = await Blog.isBlogExistById(id);
+const updateBikeByIdIntoDB = async (id: string, payload: Partial<IBike>) => {
+  // check if bike exists by id
+  const bike = await Bike.isBikeExistById(id);
 
-  if (!blog) {
-    throw new AppError(StatusCodes.NOT_FOUND, 'Blog not found');
-  }
-
-  // check current user === blog author
-
-  const currentUserEmail = user?.userEmail;
-  const blogAuthor = await Blog.findById(id).populate<{ author: IUser }>({
-    path: 'author',
-    select: 'email',
-  });
-  const blogAuthorEmail = blogAuthor?.author?.email;
-
-  if (currentUserEmail !== blogAuthorEmail) {
-    throw new AppError(
-      StatusCodes.FORBIDDEN,
-      'You are not authorized to update this blog',
-    );
+  if (!bike) {
+    throw new AppError(StatusCodes.NOT_FOUND, 'Bike not found');
   }
 
   // update the blog
-
-  const result = await Blog.findByIdAndUpdate(id, payload, {
+  const result = await Bike.findByIdAndUpdate(id, payload, {
     new: true,
     runValidators: true,
   });
@@ -86,40 +51,24 @@ const updateBlogByIdIntoDB = async (
   return result;
 };
 
-const deleteBlogByIdFromDB = async (id: string, user: JwtPayload) => {
-  // check if blog exists by id
-  const blog = await Blog.isBlogExistById(id);
+const deleteBikeByIdFromDB = async (id: string) => {
+  // check if bike exists by id
+  const bike = await Bike.isBikeExistById(id);
 
-  if (!blog) {
-    throw new AppError(StatusCodes.NOT_FOUND, 'Blog not found');
-  }
-
-  // check current user === blog author
-
-  const currentUserEmail = user?.userEmail;
-  const blogAuthor = await Blog.findById(id).populate<{ author: IUser }>({
-    path: 'author',
-    select: 'email',
-  });
-  const blogAuthorEmail = blogAuthor?.author?.email;
-
-  if (currentUserEmail !== blogAuthorEmail) {
-    throw new AppError(
-      StatusCodes.FORBIDDEN,
-      'You are not authorized to Delete this blog',
-    );
+  if (!bike) {
+    throw new AppError(StatusCodes.NOT_FOUND, 'Bike not found');
   }
 
   // delete the blog
-  const result = await Blog.findByIdAndDelete(id);
+  const result = await Bike.findByIdAndDelete(id);
 
   return result;
 };
 
-export const BlogServices = {
-  createBlogIntoDB,
-  getAllBlogsFromDB,
-  getBlogByIdFromDB,
-  deleteBlogByIdFromDB,
-  updateBlogByIdIntoDB,
+export const BikeServices = {
+  createBikeIntoDB,
+  getAllBikesFromDB,
+  getBikeByIdFromDB,
+  updateBikeByIdIntoDB,
+  deleteBikeByIdFromDB,
 };

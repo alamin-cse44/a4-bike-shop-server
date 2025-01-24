@@ -1,73 +1,70 @@
 import { StatusCodes } from 'http-status-codes';
 import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
-import { BlogServices } from './bike.service';
+import { BikeServices } from './bike.service';
 
-const createBlog = catchAsync(async (req, res) => {
-  const user = req.user;
-  const result = await BlogServices.createBlogIntoDB(req.body, user);
-
-  sendResponse(res, {
-    statusCode: StatusCodes.OK,
-    success: true,
-    message: 'Blog created successfully',
-    data: result,
-  });
-});
-
-const getAllBlogs = catchAsync(async (req, res) => {
-  const result = await BlogServices.getAllBlogsFromDB(req.query);
+const createBike = catchAsync(async (req, res) => {
+  const result = await BikeServices.createBikeIntoDB(req.body);
 
   sendResponse(res, {
     statusCode: StatusCodes.OK,
     success: true,
-    message: 'Blogs are retrieved successfully',
+    message: 'Bike is created successfully',
     data: result,
   });
 });
 
-const getBlogById = catchAsync(async (req, res) => {
+const getAllBikes = catchAsync(async (req, res) => {
+  const result = await BikeServices.getAllBikesFromDB(req.query);
+
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: 'Bikes are retrieved successfully',
+    data: result,
+  });
+});
+
+const getBikeById = catchAsync(async (req, res) => {
   const { id } = req.params;
-  const result = await BlogServices.getBlogByIdFromDB(id);
+  const result = await BikeServices.getBikeByIdFromDB(id);
 
   sendResponse(res, {
     statusCode: StatusCodes.OK,
     success: true,
-    message: 'Blog is retrieved successfully',
+    message: 'Bike is retrieved successfully',
     data: result,
   });
 });
 
-const updateBlogById = catchAsync(async (req, res) => {
-  const user = req.user;
+const updateBikeById = catchAsync(async (req, res) => {
   const { id } = req.params;
-  const result = await BlogServices.updateBlogByIdIntoDB(id, req.body, user);
+  const result = await BikeServices.updateBikeByIdIntoDB(id, req.body);
 
   sendResponse(res, {
     statusCode: StatusCodes.OK,
     success: true,
-    message: 'Blog is updated successfully',
+    message: 'Bike is updated successfully',
     data: result,
   });
 });
 
-const deleteBlogById = catchAsync(async (req, res) => {
-  const user = req.user;
+const deleteBikeById = catchAsync(async (req, res) => {
   const { id } = req.params;
-  const result = await BlogServices.deleteBlogByIdFromDB(id, user);
+  const result = await BikeServices.deleteBikeByIdFromDB(id);
 
   sendResponse(res, {
     statusCode: StatusCodes.OK,
     success: true,
-    message: 'Blog is deleted successfully',
+    message: 'Bike is deleted successfully',
     data: result,
   });
 });
 
-export const BlogControllers = {
-  createBlog,
-  getAllBlogs,
-  getBlogById,
-  deleteBlogById,
-  updateBlogById,
+export const BikeControllers = {
+  createBike,
+  getAllBikes,
+  getBikeById,
+  updateBikeById,
+  deleteBikeById,
 };

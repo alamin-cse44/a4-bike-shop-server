@@ -1,21 +1,26 @@
 import { z } from 'zod';
 
-const createProductValidaitonSchema = z.object({
+const createBikeValidaitonSchema = z.object({
   body: z.object({
-    title: z.string().min(5).max(255),
-    content: z.string().min(20).max(5000),
+    name: z.string().min(5).max(20),
+    brand: z.string().min(5).max(20),
+    price: z.number().min(1).max(1000000),
+    model: z.string({ required_error: 'required' }),
+    quantity: z.number().min(1).max(100),
   }),
 });
 
-
-const updateProductValidaitonSchema = z.object({
+const updateBikeValidaitonSchema = z.object({
   body: z.object({
-    title: z.string().min(5).max(255).optional(),
-    content: z.string().min(20).max(5000).optional(),
+    name: z.string().min(5).max(20).optional(),
+    brand: z.string().min(5).max(20).optional(),
+    price: z.number().min(1).max(1000000).optional(),
+    model: z.string({ required_error: 'required' }).optional(),
+    quantity: z.number().min(1).max(100).optional(),
   }),
 });
 
-export const BlogValidations = {
-  createProductValidaitonSchema,
-  updateProductValidaitonSchema,
+export const BikeValidations = {
+  createBikeValidaitonSchema,
+  updateBikeValidaitonSchema,
 };

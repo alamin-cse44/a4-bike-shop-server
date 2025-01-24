@@ -1,15 +1,17 @@
-import { Model, Types } from 'mongoose';
-import { IUser } from '../user/user.interface';
+import { Model } from 'mongoose';
 
-export interface IBlog {
-  title: string;
-  content: string;
-  author: Types.ObjectId | IUser;
-  isPublished: boolean;
+export interface IBike {
+  name: string;
+  brand: string;
+  price: number;
+  // model: 'Mountain' | 'Road' | 'Hybrid' | 'Electric';
+  model: string;
+  stock: boolean;
+  quantity: number;
+  description?: string;
+  image?: string;
 }
 
-
-
-export interface BlogModel extends Model<IBlog> {
-  isBlogExistById(id: string): Promise<IBlog>;
+export interface BikeModel extends Model<IBike> {
+  isBikeExistById(id: string): Promise<IBike>;
 }
