@@ -38,19 +38,19 @@ const loginUserService = async (payload: TLoginUser) => {
     userRole: user?.role,
   };
 
-  const accessToekn = createToken(
+  const accessToken = createToken(
     jwtPayload,
     config.jwt_access_token as string,
     config.jwt_access_token_expires as string,
   );
 
-  const refreshToekn = createToken(
+  const refreshToken = createToken(
     jwtPayload,
     config.jwt_refresh_token as string,
     config.jwt_refresh_token_expires as string,
   );
 
-  return { accessToekn, refreshToekn };
+  return { accessToken, refreshToken };
 };
 
 const changePasswordService = async (
