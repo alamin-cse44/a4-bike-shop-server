@@ -15,7 +15,7 @@ const getAllBikesFromDB = async (query: Record<string, unknown>) => {
   // const queryObj = { ...query };
 
   // TODO: Populate
-  const bikeQuery = new QeryBuilder(Bike.find().populate('author'), query)
+  const bikeQuery = new QeryBuilder(Bike.find().populate(''), query)
     .search(bikeSearchableFields)
     .filter()
     .sort()

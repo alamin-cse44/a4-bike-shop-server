@@ -24,10 +24,15 @@ const auth = (...requiredRoles: TUserRole[]) => {
     }
 
     // check if the token is valid
-    const decoded = jwt.verify(
-      token,
-      config.jwt_access_token as string,
-    ) as JwtPayload;
+    let decoded;
+    try {
+      decoded = jwt.verify(
+        token,
+        config.jwt_access_token as string,
+      ) as JwtPayload;
+    } catch (error) {
+      throw new AppError(StatusCodes.UNAUTHORIZED, 'Token is invalid!!!');
+    }
 
     const { userEmail, userRole, iat } = decoded;
 
