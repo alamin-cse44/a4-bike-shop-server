@@ -7,6 +7,7 @@ export interface IUser {
   password: string;
   role: 'admin' | 'customer';
   isBlocked: boolean;
+  image: string;
 }
 
 export interface UserModel extends Model<IUser> {
