@@ -29,6 +29,12 @@ const getAllBikesFromDB = async (query: Record<string, unknown>) => {
 };
 
 const getBikeByIdFromDB = async (id: string) => {
+  // check if bike exists by id
+  const bike = await Bike.isBikeExistById(id);
+
+  if (!bike) {
+    throw new AppError(StatusCodes.NOT_FOUND, 'Bike not found');
+  }
   const result = await Bike.findById(id);
 
   return result;
