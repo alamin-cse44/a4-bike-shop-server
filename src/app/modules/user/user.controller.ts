@@ -16,9 +16,9 @@ const registerUser = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getSignleUserById = catchAsync(async (req, res) => {
-  const { id } = req.params;
+  const { email } = req.params;
 
-  const result = await UserServices.getSignleUserByIdFromDB(id);
+  const result = await UserServices.getSignleUserByIdFromDB(email);
 
   sendResponse(res, {
     statusCode: StatusCodes.OK,

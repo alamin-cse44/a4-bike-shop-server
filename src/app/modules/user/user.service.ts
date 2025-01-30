@@ -7,8 +7,8 @@ const registerUserIntoDB = async (payload: IUser) => {
   return result;
 };
 
-const getSignleUserByIdFromDB = async (id: string) => {
-  const result = await User.findById(id);
+const getSignleUserByIdFromDB = async (email: string) => {
+  const result = await User.findUserByEmail(email);
 
   return result;
 };

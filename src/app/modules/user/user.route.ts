@@ -14,7 +14,7 @@ router.post(
 );
 
 router.get(
-  '/single-user/:id',
+  '/single-user/:email',
   auth(USER_ROLE.admin, USER_ROLE.customer),
   UserControllers.getSignleUserById,
 );
