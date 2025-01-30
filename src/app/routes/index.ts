@@ -4,6 +4,7 @@ import { AdminRouters } from '../modules/admin/admin.route';
 import { AuthRouters } from '../modules/auth/auth.route';
 import { BikeRouters } from '../modules/bike/bike.route';
 import { OrderRouters } from '../modules/order/order.route';
+import { CartRouters } from '../modules/cart/cart.route';
 
 const router = Router();
 
@@ -27,6 +28,10 @@ const moduleRoutes = [
   {
     path: '/orders',
     route: OrderRouters,
+  },
+  {
+    path: '/carts',
+    route: CartRouters,
   },
 ];
 
