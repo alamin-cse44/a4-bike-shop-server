@@ -8,6 +8,18 @@ import { Order } from '../order/order.model';
 import { IOrder } from '../order/order.interface';
 
 const createCartIntoDB = async (payload: ICart) => {
+  const { userEmail, product } = payload;
+
+  const existingCartItem = await Cart.findOne({ userEmail, product });
+
+  if (existingCartItem) {
+    existingCartItem.quantity += 1;
+    await existingCartItem.save();
+    console.log('Cart item quantity updated successfully');
+
+    return existingCartItem;
+  }
+
   const result = await Cart.create(payload);
 
   return result;
@@ -72,10 +84,10 @@ const deleteOrderByIdFromDB = async (id: string) => {
   return result;
 };
 
-export const OrderServices = {
+export const CartServices = {
   createCartIntoDB,
-  getAllOrdersFromDB,
-  getOrderByIdFromDB,
-  updateOrderByIdIntoDB,
-  deleteOrderByIdFromDB,
+  // getAllOrdersFromDB,
+  // getOrderByIdFromDB,
+  // updateOrderByIdIntoDB,
+  // deleteOrderByIdFromDB,
 };

@@ -1,10 +1,11 @@
 import { StatusCodes } from 'http-status-codes';
 import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
-import { OrderServices } from './cart.service';
+import { OrderServices } from '../order/order.service';
+import { CartServices } from './cart.service';
 
 const createCart = catchAsync(async (req, res) => {
-  const result = await OrderServices.createCartIntoDB(req.body);
+  const result = await CartServices.createCartIntoDB(req.body);
 
   sendResponse(res, {
     statusCode: StatusCodes.OK,
@@ -61,10 +62,10 @@ const deleteOrderById = catchAsync(async (req, res) => {
   });
 });
 
-export const OrderControllers = {
+export const CartControllers = {
   createCart,
-  getAllOrders,
-  getOrderById,
-  updateOrderById,
-  deleteOrderById,
+  // getAllOrders,
+  // getOrderById,
+  // updateOrderById,
+  // deleteOrderById,
 };

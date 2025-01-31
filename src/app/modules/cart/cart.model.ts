@@ -6,9 +6,8 @@ import { CartModel, ICart } from './cart.interface';
 
 const cartSchema = new Schema<ICart, CartModel>(
   {
-    customer: {
-      type: Schema.Types.ObjectId,
-      ref: 'User',
+    userEmail: {
+      type: String,
       required: true,
     },
     product: {
@@ -18,7 +17,7 @@ const cartSchema = new Schema<ICart, CartModel>(
     },
     quantity: {
       type: Number,
-      required: true,
+      // required: true,
     },
   },
   {
@@ -34,11 +33,14 @@ cartSchema.pre('save', async function (next) {
     )) as BikeDocument;
 
     if (!product) {
-      throw new AppError(StatusCodes.NOT_FOUND, 'Product not found');
+      // console.log('product pawa jayni');
+      return next(new AppError(StatusCodes.NOT_FOUND, 'Product not found'));
     }
 
-    // Add quantity 
-    this.quantity += 1;
+    // If new entry, set quantity to 1
+    if (!this.quantity) {
+      this.quantity = 1;
+    }
 
     // Proceed to the next middleware or save operation
     next();
@@ -47,8 +49,8 @@ cartSchema.pre('save', async function (next) {
   }
 });
 
-cartSchema.statics.isCartExistById = async function (id: string) {
-  return await Cart.findById(id);
+cartSchema.statics.isCartExistByEmailAndId = async function (email: string, id: string) {
+  return await Cart.findOne({userEmail: email, id: id});
 };
 
 export const Cart = model<ICart, CartModel>('Cart', cartSchema);
