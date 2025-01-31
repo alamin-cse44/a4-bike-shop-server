@@ -15,57 +15,45 @@ const createCart = catchAsync(async (req, res) => {
   });
 });
 
-const getAllOrders = catchAsync(async (req, res) => {
-  const result = await OrderServices.getAllOrdersFromDB(req.query);
+const getCartByEmail = catchAsync(async (req, res) => {
+  const { email } = req.params;
+  const result = await CartServices.getCartByEmailFromDB(email);
 
   sendResponse(res, {
     statusCode: StatusCodes.OK,
     success: true,
-    message: 'Orders are retrieved successfully',
+    message: 'Carts are retrieved successfully',
     data: result,
   });
 });
 
-const getOrderById = catchAsync(async (req, res) => {
+const updateCartById = catchAsync(async (req, res) => {
   const { id } = req.params;
-  const result = await OrderServices.getOrderByIdFromDB(id);
+  const result = await CartServices.updateCartByIdIntoDB(id, req.body);
 
   sendResponse(res, {
     statusCode: StatusCodes.OK,
     success: true,
-    message: 'Order is retrieved successfully',
+    message: 'Cart is updated successfully',
     data: result,
   });
 });
 
-const updateOrderById = catchAsync(async (req, res) => {
+const deleteCartById = catchAsync(async (req, res) => {
   const { id } = req.params;
-  const result = await OrderServices.updateOrderByIdIntoDB(id, req.body);
+  const result = await CartServices.deleteCartByIdFromDB(id);
 
   sendResponse(res, {
     statusCode: StatusCodes.OK,
     success: true,
-    message: 'Order is updated successfully',
-    data: result,
-  });
-});
-
-const deleteOrderById = catchAsync(async (req, res) => {
-  const { id } = req.params;
-  const result = await OrderServices.deleteOrderByIdFromDB(id);
-
-  sendResponse(res, {
-    statusCode: StatusCodes.OK,
-    success: true,
-    message: 'Order is deleted successfully',
+    message: 'Cart is deleted successfully',
     data: result,
   });
 });
 
 export const CartControllers = {
   createCart,
-  // getAllOrders,
-  // getOrderById,
-  // updateOrderById,
-  // deleteOrderById,
+  getCartByEmail,
+  deleteCartById,
+  updateCartById,
 };

@@ -12,29 +12,23 @@ router.post(
   CartControllers.createCart,
 );
 
-// router.get(
-//   '/',
-//   auth(USER_ROLE.admin, USER_ROLE.customer),
-//   OrderControllers.getAllOrders,
-// );
+router.get(
+  '/:email',
+  auth(USER_ROLE.admin, USER_ROLE.customer),
+  CartControllers.getCartByEmail,
+);
 
-// router.get(
-//   '/:id',
-//   auth(USER_ROLE.admin, USER_ROLE.customer),
-//   OrderControllers.getOrderById,
-// );
+router.patch(
+  '/:id',
+  auth(USER_ROLE.admin, USER_ROLE.customer),
+  //   validateRequest(BikeValidations.updateBikeValidaitonSchema),
+  CartControllers.updateCartById,
+);
 
-// router.patch(
-//   '/:id',
-//   auth(USER_ROLE.admin, USER_ROLE.customer),
-//   //   validateRequest(BikeValidations.updateBikeValidaitonSchema),
-//   OrderControllers.updateOrderById,
-// );
-
-// router.delete(
-//   '/:id',
-//   auth(USER_ROLE.admin, USER_ROLE.customer),
-//   OrderControllers.deleteOrderById,
-// );
+router.delete(
+  '/:id',
+  auth(USER_ROLE.admin, USER_ROLE.customer),
+  CartControllers.deleteCartById,
+);
 
 export const CartRouters = router;
