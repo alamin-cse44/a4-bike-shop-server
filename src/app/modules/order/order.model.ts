@@ -6,6 +6,10 @@ import { BikeDocument } from '../bike/bike.interface';
 
 const orderSchema = new Schema<IOrder, OrderModel>(
   {
+    email: {
+      type: String,
+      required: true,
+    },
     customer: {
       type: Schema.Types.ObjectId,
       ref: 'User',
@@ -18,9 +22,8 @@ const orderSchema = new Schema<IOrder, OrderModel>(
     },
     totalPrice: {
       type: Number,
-      required: true,
     },
-    status: {
+    orderStatus: {
       type: String,
       enum: ['pending', 'confirmed', 'delivered', 'cancelled'],
       default: 'pending',
@@ -28,6 +31,23 @@ const orderSchema = new Schema<IOrder, OrderModel>(
     quantity: {
       type: Number,
       required: true,
+    },
+    address: {
+      type: String,
+    },
+    phone: {
+      type: String,
+    },
+    paymentMethod: {
+      type: String,
+    },
+    paymentStatus: {
+      type: String,
+      enum: ['pending', 'success'],
+      default: 'pending',
+    },
+    transactionId: {
+      type: String,
     },
   },
   {

@@ -4,6 +4,7 @@ import AppError from '../../errors/AppError';
 import { IOrder } from './order.interface';
 import { Order } from './order.model';
 import { orderSearchableFields } from './order.constant';
+import { User } from '../user/user.model';
 
 const createOrderIntoDB = async (payload: IOrder) => {
   const result = await Order.create(payload);
@@ -31,14 +32,30 @@ const getAllOrdersFromDB = async (query: Record<string, unknown>) => {
   return result;
 };
 
+const getOrdersByEmailFromDB = async (email: string) => {
+
+  const customer = await User.findOne({email});
+
+  console.log("customer : ", customer);
+
+  const result = await Order.find({email}).populate('customer').populate('product');
+
+  return result;
+};
+
 const getOrderByIdFromDB = async (id: string) => {
-  const result = await Order.findById(id);
+  const order = await Order.isOrderExistById(id);
+
+  if (!order) {
+    throw new AppError(StatusCodes.NOT_FOUND, 'Order not found');
+  }
+  const result = await Order.findById(id).populate('customer').populate('product');
 
   return result;
 };
 
 const updateOrderByIdIntoDB = async (id: string, payload: Partial<IOrder>) => {
-  // check if bike exists by id
+  // check if order exists by id
   const order = await Order.isOrderExistById(id);
 
   if (!order) {
@@ -47,7 +64,6 @@ const updateOrderByIdIntoDB = async (id: string, payload: Partial<IOrder>) => {
 
   // TODO: check orderer ==== order updater
 
-  // update the blog
   const result = await Order.findByIdAndUpdate(id, payload, {
     new: true,
     runValidators: true,
@@ -73,6 +89,7 @@ const deleteOrderByIdFromDB = async (id: string) => {
 export const OrderServices = {
   createOrderIntoDB,
   getAllOrdersFromDB,
+  getOrdersByEmailFromDB,
   getOrderByIdFromDB,
   updateOrderByIdIntoDB,
   deleteOrderByIdFromDB,

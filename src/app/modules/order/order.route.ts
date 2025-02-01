@@ -13,9 +13,9 @@ router.post(
 );
 
 router.get(
-  '/',
+  '/:email',
   auth(USER_ROLE.admin, USER_ROLE.customer),
-  OrderControllers.getAllOrders,
+  OrderControllers.getOrdersByEmail,
 );
 
 router.get(
@@ -23,6 +23,7 @@ router.get(
   auth(USER_ROLE.admin, USER_ROLE.customer),
   OrderControllers.getOrderById,
 );
+
 
 router.patch(
   '/:id',
@@ -36,5 +37,8 @@ router.delete(
   auth(USER_ROLE.admin, USER_ROLE.customer),
   OrderControllers.deleteOrderById,
 );
+
+
+router.get('/', auth(USER_ROLE.admin), OrderControllers.getAllOrders);
 
 export const OrderRouters = router;
