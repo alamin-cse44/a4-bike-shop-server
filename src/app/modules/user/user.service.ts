@@ -16,7 +16,7 @@ const getSignleUserByIdFromDB = async (email: string) => {
 };
 
 const getAllUsersFromDB = async (query: Record<string, unknown>) => {
-  const userQuery = new QeryBuilder(User.find().populate(''), query)
+  const userQuery = new QeryBuilder(User.find(), query)
     .search(userSearchableFields)
     .filter()
     .sort()
