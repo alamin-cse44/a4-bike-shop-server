@@ -1,3 +1,5 @@
+import QeryBuilder from '../../builder/QeryBuilder';
+import { userSearchableFields } from './user.constant';
 import { IUser } from './user.interface';
 import { User } from './user.model';
 
@@ -13,8 +15,16 @@ const getSignleUserByIdFromDB = async (email: string) => {
   return result;
 };
 
-const getAllUsersFromDB = async () => {
-  const result = await User.find({});
+const getAllUsersFromDB = async (query: Record<string, unknown>) => {
+  const userQuery = new QeryBuilder(User.find().populate(''), query)
+    .search(userSearchableFields)
+    .filter()
+    .sort()
+    .sortByAscOrDesc()
+    .paginate()
+    .fields();
+
+  const result = await userQuery.modelQuery;
 
   return result;
 };
