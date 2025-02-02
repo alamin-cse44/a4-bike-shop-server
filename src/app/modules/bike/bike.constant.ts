@@ -1,1 +1,1 @@
-export const bikeSearchableFields = ['name', 'brand', 'model'];
+export const bikeSearchableFields = ['name', 'categories', 'brand', 'model'];

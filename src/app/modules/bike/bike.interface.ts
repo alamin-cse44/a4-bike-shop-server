@@ -2,10 +2,10 @@ import { Document, Model } from 'mongoose';
 
 export interface IBike {
   name: string;
-  brand: string;
-  price: number;
-  // model: 'Mountain' | 'Road' | 'Hybrid' | 'Electric';
+  categories: 'Sport' | 'Cruiser' | 'Adventure' | 'Naked' | 'Dirt';
+  brand: 'Yamaha' | 'Honda' | 'Suzuki' | 'Ducati' | 'Kawaski';
   model: string;
+  price: number;
   stock: boolean;
   quantity: number;
   description?: string;

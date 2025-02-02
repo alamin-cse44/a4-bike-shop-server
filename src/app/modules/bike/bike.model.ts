@@ -9,18 +9,21 @@ const bikeSchema = new Schema<IBike, BikeModel>(
       unique: true,
       trim: true,
     },
+    categories: {
+      type: String,
+      enum: ['Sport', 'Cruiser', 'Adventure', 'Naked', 'Dirt'],
+      required: [
+        true,
+        'Category should be Sport or Cruiser or Adventure or Naked or Dirt',
+      ],
+    },
     brand: {
       type: String,
-      required: [true, 'Please enter a brand name'],
-      trim: true,
-    },
-    price: {
-      type: Number,
-      required: [true, 'Price must be provided'],
-      validate: {
-        validator: (value: number) => value > 0,
-        message: 'The bike price must be a positive number',
-      },
+      enum: ['Yamaha', 'Honda', 'Suzuki', 'Ducati', 'Kawaski'],
+      required: [
+        true,
+        'Brand should be Yamaha or Honda or Suzuki or Ducati or Kawaski',
+      ],
     },
     model: {
       type: String,
@@ -33,6 +36,14 @@ const bikeSchema = new Schema<IBike, BikeModel>(
       validate: {
         validator: (value: number) => value >= 0,
         message: 'The bike quantity must be a non-negative number',
+      },
+    },
+    price: {
+      type: Number,
+      required: [true, 'Price must be provided'],
+      validate: {
+        validator: (value: number) => value > 0,
+        message: 'The bike price must be a positive number',
       },
     },
     stock: {
