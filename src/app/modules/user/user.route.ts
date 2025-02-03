@@ -19,6 +19,12 @@ router.get(
   UserControllers.getSignleUserById,
 );
 
+router.delete(
+  '/delete-user/:email',
+  auth(USER_ROLE.admin),
+  UserControllers.deleteSignleUserByEmail,
+);
+
 // router.post(
 //   '/change-status/:id',
 //   auth('admin'),

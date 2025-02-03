@@ -48,7 +48,7 @@ const updateBikeByIdIntoDB = async (id: string, payload: Partial<IBike>) => {
     throw new AppError(StatusCodes.NOT_FOUND, 'Bike not found');
   }
 
-  // update the blog
+  // update the bike
   const result = await Bike.findByIdAndUpdate(id, payload, {
     new: true,
     runValidators: true,
@@ -65,7 +65,7 @@ const deleteBikeByIdFromDB = async (id: string) => {
     throw new AppError(StatusCodes.NOT_FOUND, 'Bike not found');
   }
 
-  // delete the blog
+  // delete the bike
   const result = await Bike.findByIdAndDelete(id);
 
   return result;

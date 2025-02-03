@@ -28,6 +28,19 @@ const getSignleUserById = catchAsync(async (req, res) => {
   });
 });
 
+const deleteSignleUserByEmail = catchAsync(async (req, res) => {
+  const { email } = req.params;
+
+  const result = await UserServices.deleteSignleUserByIdFromDB(email);
+
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: 'User deleted successfully',
+    data: result,
+  });
+});
+
 const getAllUsers = catchAsync(async (req, res) => {
   const result = await UserServices.getAllUsersFromDB(req.query);
 
@@ -69,6 +82,7 @@ const getMe = catchAsync(async (req, res) => {
 export const UserControllers = {
   registerUser,
   getSignleUserById,
+  deleteSignleUserByEmail,
   getAllUsers,
   getMe,
 };
