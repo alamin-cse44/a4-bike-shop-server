@@ -13,7 +13,7 @@ router.post(
 );
 
 router.get(
-  '/:email',
+  '/by-email',
   auth(USER_ROLE.admin, USER_ROLE.customer),
   OrderControllers.getOrdersByEmail,
 );

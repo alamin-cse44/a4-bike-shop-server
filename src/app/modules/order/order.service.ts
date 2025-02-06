@@ -4,7 +4,6 @@ import AppError from '../../errors/AppError';
 import { IOrder } from './order.interface';
 import { Order } from './order.model';
 import { orderSearchableFields } from './order.constant';
-import { User } from '../user/user.model';
 
 const createOrderIntoDB = async (payload: IOrder) => {
   const result = await Order.create(payload);
@@ -13,9 +12,6 @@ const createOrderIntoDB = async (payload: IOrder) => {
 };
 
 const getAllOrdersFromDB = async (query: Record<string, unknown>) => {
-  // const queryObj = { ...query };
-
-  // TODO: Populate
   const orderQuery = new QeryBuilder(
     Order.find().populate('customer').populate('product'),
     query,
@@ -32,13 +28,22 @@ const getAllOrdersFromDB = async (query: Record<string, unknown>) => {
   return result;
 };
 
-const getOrdersByEmailFromDB = async (email: string) => {
+const getOrdersByEmailFromDB = async (
+  email: string,
+  query: Record<string, unknown>,
+) => {
+  const orderQuery = new QeryBuilder(
+    Order.find({ email }).populate('customer').populate('product'),
+    query,
+  )
+    .search(orderSearchableFields)
+    .filter()
+    .sort()
+    .sortByAscOrDesc()
+    .paginate()
+    .fields();
 
-  const customer = await User.findOne({email});
-
-  console.log("customer : ", customer);
-
-  const result = await Order.find({email}).populate('customer').populate('product');
+  const result = await orderQuery.modelQuery;
 
   return result;
 };
@@ -49,7 +54,9 @@ const getOrderByIdFromDB = async (id: string) => {
   if (!order) {
     throw new AppError(StatusCodes.NOT_FOUND, 'Order not found');
   }
-  const result = await Order.findById(id).populate('customer').populate('product');
+  const result = await Order.findById(id)
+    .populate('customer')
+    .populate('product');
 
   return result;
 };

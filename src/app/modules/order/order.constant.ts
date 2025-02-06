@@ -1,1 +1,1 @@
-export const orderSearchableFields = ['status'];
+export const orderSearchableFields = ['status', 'phone', 'email'];

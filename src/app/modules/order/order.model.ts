@@ -63,12 +63,14 @@ orderSchema.pre('save', async function (next) {
     )) as BikeDocument;
 
     if (!product) {
-      throw new AppError(StatusCodes.NOT_FOUND, 'Product not found');
+      return next(new AppError(StatusCodes.NOT_FOUND, 'Product not found'));
     }
 
     // Check if there is enough stock to fulfill the order
     if (product.quantity < this.quantity) {
-      throw new AppError(StatusCodes.FORBIDDEN, 'Not enough quantity in stock');
+      return next(
+        new AppError(StatusCodes.FORBIDDEN, 'Not enough quantity in stock'),
+      );
     }
 
     // Deduct the ordered quantity from the product's stock

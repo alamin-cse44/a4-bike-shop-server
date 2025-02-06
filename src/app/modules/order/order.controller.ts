@@ -26,8 +26,9 @@ const getAllOrders = catchAsync(async (req, res) => {
 });
 
 const getOrdersByEmail = catchAsync(async (req, res) => {
-  const { email } = req.params;
-  const result = await OrderServices.getOrdersByEmailFromDB(email);
+  // const { email } = req.params;
+  const { userEmail } = req.user;
+  const result = await OrderServices.getOrdersByEmailFromDB(userEmail, req.query);
 
   sendResponse(res, {
     statusCode: StatusCodes.OK,
