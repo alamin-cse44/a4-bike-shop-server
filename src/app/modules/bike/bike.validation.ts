@@ -18,7 +18,7 @@ const updateBikeValidaitonSchema = z.object({
     brand: z.string().min(3).max(40).optional(),
     model: z.string({ required_error: 'required' }).optional(),
     price: z.number().min(1).max(1000000).optional(),
-    quantity: z.number().min(1).max(100).optional(),
+    quantity: z.number().min(1).max(500).optional(),
   }),
 });
 
