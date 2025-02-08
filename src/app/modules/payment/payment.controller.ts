@@ -78,7 +78,7 @@ const succesPayment = catchAsync(async (req: Request, res: Response) => {
     { new: true, runValidators: true },
   );
 
-  res.redirect('https://a4-bike-shop-client.vercel.app/dashboard');
+  res.redirect('https://a4-bike-shop-client.vercel.app/my-orders');
 });
 
 const failPayment = catchAsync(async (req: Request, res: Response) => {

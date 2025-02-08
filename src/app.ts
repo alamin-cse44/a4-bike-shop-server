@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: ['https://a4-bike-shop-client.vercel.app'],
+    origin: 'https://a4-bike-shop-client.vercel.app',
     credentials: true,
   }),
 );
