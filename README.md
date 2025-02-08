@@ -1,22 +1,13 @@
 ### Title: Blog-project
 
 ### Overview
-The goal of this assignment is to develop a backend for a blogging platform where users can write, update, and delete their blogs. The system will have two roles: Admin and User. The Admin has special permissions to manage users and their blogs, while users can perform CRUD operations on their own blogs. The backend will include secure authentication, role-based access control, and a public API for viewing blogs with search, sort, and filter functionalities.
+The goal of this assignment is to develop a backend for a bike shop platform where users can purchase, update, and delete their orders. The system will have two roles: Admin and Customer. The Admin has special permissions to manage users and their products, while users can perform CRUD operations on their own orders. The backend will include secure authentication, role-based access control, and a public API for viewing blogs with search, sort, and filter functionalities.
 
 
-### Deployment link :
+### Frontend Deployment link :
 
-- https://blog-project-cli-server.vercel.app/
+- https://a4-bike-shop-client.vercel.app/
 
-### The working flow of my API end point is described below :
-
-- https://blog-project-cli-server.vercel.app/api/auth/register  —> to create an user
-- https://blog-project-cli-server.vercel.app/api/auth/login —> login user with the credentials
-
-- https://blog-project-cli-server.vercel.app/api/blogs —> to create a Blog (POST) / to get all Blogs (GET)
-- https://blog-project-cli-server.vercel.app/api/blogs/67416f3ef20e7e9d8b3510b3 —> to find specific blog for updating, deleting etc.
-- https://blog-project-cli-server.vercel.app/api/admin/users/6765da0016b129ae7b83df59/block --> Block an user by admin
-- https://blog-project-cli-server.vercel.app/api/admin/blogs/6765db6016b129ae7b83df69 --> delete
 
 In this project I have used node package manager(npm) to install all kinds of required dependency. I have followed the modular pattern in my project building.
 
