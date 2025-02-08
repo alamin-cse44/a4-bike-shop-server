@@ -17,9 +17,10 @@ const createPayment = catchAsync(async (req: Request, res: Response) => {
     total_amount: totalPrice,
     currency: 'BDT',
     tran_id: trxId,
-    success_url: 'http://localhost:5000/api/v1/payments/success',
-    fail_url: 'http://localhost:5000/api/v1/payments/fail',
-    cancel_url: 'http://localhost:5000/api/v1/payments/cancel',
+    success_url:
+      'https://a4-bike-shop-server.vercel.app/api/v1/payments/success',
+    fail_url: 'https://a4-bike-shop-server.vercel.app/api/v1/payments/fail',
+    cancel_url: 'https://a4-bike-shop-server.vercel.app/api/v1/payments/cancel',
     cus_name: 'Customer Name',
     cus_email: 'cust@yahoo.com',
     shipping_method: 'NO',
@@ -77,15 +78,15 @@ const succesPayment = catchAsync(async (req: Request, res: Response) => {
     { new: true, runValidators: true },
   );
 
-  res.redirect('http://localhost:5173/dashboard');
+  res.redirect('https://a4-bike-shop-client.vercel.app/dashboard');
 });
 
 const failPayment = catchAsync(async (req: Request, res: Response) => {
-  res.redirect('http://localhost:5173/payment-error');
+  res.redirect('https://a4-bike-shop-client.vercel.app/payment-error');
 });
 
 const cancelPayment = catchAsync(async (req: Request, res: Response) => {
-  res.redirect('http://localhost:5173/payment-error');
+  res.redirect('https://a4-bike-shop-client.vercel.app/payment-error');
 });
 
 export const PaymentControllers = {
