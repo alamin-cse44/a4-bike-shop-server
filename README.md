@@ -1,4 +1,4 @@
-### Title: Blog-project
+### Title: Bike Shop
 
 ### Overview
 The goal of this assignment is to develop a backend for a bike shop platform where users can purchase, update, and delete their orders. The system will have two roles: Admin and Customer. The Admin has special permissions to manage users and their products, while users can perform CRUD operations on their own orders. The backend will include secure authentication, role-based access control, and a public API for viewing blogs with search, sort, and filter functionalities.
